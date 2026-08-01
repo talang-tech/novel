@@ -1,0 +1,20 @@
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 编辑器
+.vscode/
+.idea/
+*.swp
+*~
+
+# 临时/草稿
+*.tmp
+*.bak
+drafts-private/
+
+# 导出产物
+*.docx
+*.pdf
+*.epub
+build/
