@@ -100,12 +100,21 @@
   color: var(--md-default-fg-color--light);
 }
 
+/* ---------- 章末翻页栏：与正文末尾拉开距离 ---------- */
+.md-footer__inner {
+  margin-top: 2rem;
+}
+
+.md-typeset > p:last-child {
+  margin-bottom: 2.5rem;
+}
+
 /* ---------- 引用块：邮件、备忘录、commit message ---------- */
 .md-typeset blockquote {
   border-left: 2px solid var(--md-accent-fg-color);
   background: var(--md-code-bg-color);
-  margin: 1.6em 0;
-  padding: 0.9em 1.2em;
+  margin: 1.7em 0;
+  padding: 1.1em 1.5em;
   color: var(--md-default-fg-color);
   font-size: 0.95em;
   border-radius: 0 3px 3px 0;
