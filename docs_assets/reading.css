@@ -1,0 +1,203 @@
+/* ==========================================================
+   《向上兼容》阅读排版
+   目标：像读书，不像读技术文档
+   ========================================================== */
+
+:root {
+  --novel-measure: 34em;      /* 正文栏宽，约每行 34 个汉字 */
+  --novel-leading: 2.05;      /* 行高，中文长文的舒适值 */
+}
+
+/* ---------- 正文容器：收窄居中，这是最重要的一条 ---------- */
+.md-content {
+  max-width: var(--novel-measure);
+  margin: 0 auto;
+}
+
+.md-content__inner {
+  padding-top: 1.2rem;
+  margin-bottom: 3rem;
+}
+
+/* ---------- 正文段落 ---------- */
+.md-typeset {
+  font-size: 0.86rem;
+  line-height: var(--novel-leading);
+  letter-spacing: 0.012em;
+  text-align: justify;
+  text-justify: inter-ideograph;
+}
+
+.md-typeset p {
+  margin: 1.15em 0;
+  /* 中文小说不用首行缩进，靠段间距分隔，屏幕上更清爽 */
+}
+
+/* 单句成段的短句（本书的关键手法）给一点呼吸 */
+.md-typeset p:has(+ p) {
+  orphans: 2;
+  widows: 2;
+}
+
+/* ---------- 章节标题 ---------- */
+.md-typeset h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  text-align: center;
+  margin: 2.2rem 0 2.8rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+  color: var(--md-default-fg-color);
+}
+
+.md-typeset h2 {
+  font-size: 1.05rem;
+  margin-top: 2.6em;
+  letter-spacing: 0.02em;
+}
+
+/* ---------- 场景分隔线：小说里的 --- ---------- */
+.md-typeset hr {
+  border: none;
+  margin: 2.6rem auto;
+  width: 30%;
+  text-align: center;
+  overflow: visible;
+}
+
+.md-typeset hr::after {
+  content: "· · ·";
+  display: block;
+  font-size: 0.9rem;
+  letter-spacing: 0.6em;
+  color: var(--md-default-fg-color--light);
+  text-indent: 0.6em;
+}
+
+/* ---------- 引用块：邮件、备忘录、commit message ---------- */
+.md-typeset blockquote {
+  border-left: 2px solid var(--md-accent-fg-color);
+  background: var(--md-code-bg-color);
+  margin: 1.6em 0;
+  padding: 0.9em 1.2em;
+  color: var(--md-default-fg-color);
+  font-size: 0.95em;
+  border-radius: 0 3px 3px 0;
+}
+
+.md-typeset blockquote p {
+  margin: 0.5em 0;
+}
+
+/* ---------- 代码块：SQL / 日志 / commit ---------- */
+.md-typeset pre > code {
+  font-size: 0.74rem;
+  line-height: 1.7;
+  letter-spacing: 0;
+}
+
+.md-typeset .highlight {
+  margin: 1.6em 0;
+}
+
+/* 行内代码：配置项名、表名 */
+.md-typeset code {
+  font-size: 0.82em;
+  padding: 0.12em 0.38em;
+  letter-spacing: 0;
+}
+
+/* ---------- 首页 ---------- */
+.md-typeset .md-button {
+  margin: 0.4rem 0.3rem 0.4rem 0;
+  font-size: 0.78rem;
+}
+
+/* 首页目录里的章节列表 */
+.md-typeset ul li {
+  margin-bottom: 0.5em;
+  line-height: 1.85;
+}
+
+.md-typeset h3 {
+  margin-top: 2.2em;
+  font-size: 0.95rem;
+  color: var(--md-accent-fg-color);
+  letter-spacing: 0.06em;
+}
+
+.md-typeset small {
+  color: var(--md-default-fg-color--light);
+  font-size: 0.78em;
+}
+
+/* ---------- 章末上下章导航 ---------- */
+.md-typeset hr + p:last-child {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.82rem;
+  line-height: 2.2;
+}
+
+.md-typeset hr + p:last-child a {
+  padding: 0.3em 0.2em;
+}
+
+/* ---------- 夜间模式：降低对比，长时间读不刺眼 ---------- */
+[data-md-color-scheme="slate"] {
+  --md-default-bg-color: #16181d;
+  --md-default-fg-color: #c8ccd4;
+  --md-default-fg-color--light: #8b919c;
+  --md-code-bg-color: #1e2128;
+  --md-typeset-a-color: #8ab4f8;
+}
+
+[data-md-color-scheme="slate"] .md-typeset h1 {
+  color: #e3e6eb;
+}
+
+/* ---------- 移动端 ---------- */
+@media screen and (max-width: 76.1875em) {
+  .md-content {
+    max-width: 100%;
+  }
+  .md-typeset {
+    font-size: 0.88rem;
+    line-height: 1.95;
+  }
+  .md-typeset h1 {
+    font-size: 1.25rem;
+    margin: 1.4rem 0 2rem;
+  }
+  .md-content__inner {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* ---------- 打印：导出 PDF 时可用 ---------- */
+@media print {
+  .md-typeset {
+    font-size: 10.5pt;
+    line-height: 1.8;
+  }
+  .md-typeset h1 {
+    page-break-before: always;
+  }
+  .md-content {
+    max-width: 100%;
+  }
+}
+
+/* ---------- 阅读进度条 ---------- */
+.md-progress {
+  height: 2px;
+}
+
+/* 隐藏正文里多余的 "返回目录" 视觉噪音 */
+.md-typeset a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}

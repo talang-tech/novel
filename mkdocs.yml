@@ -1,0 +1,100 @@
+# 《向上兼容》· MkDocs Material 阅读站配置
+#
+# 注意：docs/ 目录由 scripts/build_site.py 自动生成，不要手工编辑。
+# 新增章节只需往 chapters/ 放文件，无需修改本文件的 nav。
+
+site_name: 向上兼容
+site_description: 一个沉默的后端工程师，被迫学习向上管理的故事。都市现实职场长篇小说。
+site_author: talang-tech
+site_url: https://novel.pages.dev/
+
+repo_url: https://github.com/talang-tech/novel
+repo_name: talang-tech/novel
+edit_uri: ""
+
+docs_dir: docs
+site_dir: site
+
+theme:
+  name: material
+  language: zh
+
+  # 日间 / 夜间双阅读模式
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: black
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: 切换到夜间模式
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: 切换到日间模式
+
+  font:
+    text: Noto Serif SC      # 正文用宋体，长文阅读更省眼
+    code: JetBrains Mono     # 代码块（小说里有真实 SQL 和 commit）
+
+  features:
+    - navigation.instant     # 局部刷新，翻章不闪白
+    - navigation.instant.progress
+    - navigation.tracking    # 地址栏跟随滚动位置
+    - navigation.top         # 返回顶部
+    - navigation.footer      # 页脚上下章
+    - navigation.indexes
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+
+  icon:
+    repo: fontawesome/brands/github
+
+plugins:
+  - search:
+      lang: zh               # 中文分词，搜"监控大盘"能命中
+      separator: '[\s\u200b\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
+  - literate-nav:
+      nav_file: SUMMARY.md   # 侧边栏从 docs/SUMMARY.md 自动读取
+
+markdown_extensions:
+  # 排版增强
+  - toc:
+      permalink: true
+      permalink_title: 跳转到此处
+      toc_depth: 3
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+  - pymdownx.inlinehilite
+  - pymdownx.caret
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.smartsymbols
+  - pymdownx.blocks.caption
+  - attr_list             # 首页按钮需要
+  - md_in_html
+  - footnotes
+  - tables
+
+extra_css:
+  - assets/reading.css    # 小说排版：行距、字号、段间距
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/talang-tech/novel
+      name: GitHub 仓库
+  generator: false
+
+copyright: >
+  《向上兼容》· 每晚 20:00 更新
