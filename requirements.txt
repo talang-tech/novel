@@ -1,3 +1,7 @@
-mkdocs-material>=9.5.0
-mkdocs-literate-nav>=0.6.1
+# 钉住主版本：MkDocs 2.0 将移除插件系统且无迁移路径，
+# 详见 https://squidfunk.github.io/mkdocs-material/blog/2026/02/18/mkdocs-2.0/
+# 不锁的话某天 CF 重新构建会突然全站失败。
+mkdocs>=1.6,<2
+mkdocs-material>=9.5,<10
+mkdocs-literate-nav>=0.6.1,<0.7
 jieba>=0.42.1
