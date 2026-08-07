@@ -245,7 +245,9 @@ def build(check_only=False):
         f.write("\n".join(idx))
 
     # ---------- SUMMARY.md：literate-nav 用它生成侧边栏 ----------
-    summary = ["# 目录", "", "- [首页](index.md)", ""]
+    # 注意：列表项之间不能有空行。有空行会被 Markdown 解析为松散列表，
+    # 每项包进 <p> 标签，literate-nav 会抛 LiterateNavParseError。
+    summary = ["# 目录", "", "- [首页](index.md)"]
     cur_vol = None
     for c in chapters:
         if c["volume"] != cur_vol:
