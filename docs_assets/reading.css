@@ -4,14 +4,23 @@
    ========================================================== */
 
 :root {
-  --novel-measure: 34em;      /* 正文栏宽，约每行 34 个汉字 */
+  /* 注意：不要用 em —— .md-content 的 font-size 是 10px（Material 根字号），
+     34em 会被算成 340px，导致每行只有 15 个汉字。必须用 rem 或 px。 */
+  --novel-measure: 40rem;     /* ≈640px，每行约 32 个汉字 */
   --novel-leading: 2.05;      /* 行高，中文长文的舒适值 */
 }
 
 /* ---------- 正文容器：收窄居中，这是最重要的一条 ---------- */
 .md-content {
   max-width: var(--novel-measure);
-  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 首页隐藏了左侧导航（hide: navigation），此时 Material 的栅格
+   会让内容偏左。用 flex 居中 main 区域纠正。 */
+.md-main__inner {
+  justify-content: center;
 }
 
 .md-content__inner {
@@ -31,6 +40,15 @@
 .md-typeset p {
   margin: 1.15em 0;
   /* 中文小说不用首行缩进，靠段间距分隔，屏幕上更清爽 */
+}
+
+/* 中文软换行（源文件里的单个 \n）在浏览器里会渲染成一个半角空格，
+   造成「。 他写」这种句间空隙。用 text-spacing-trim 无法处理，
+   这里靠 word-break 让浏览器在汉字处自由断行，不依赖空格。 */
+.md-typeset {
+  word-break: normal;
+  overflow-wrap: break-word;
+  line-break: strict;
 }
 
 /* 单句成段的短句（本书的关键手法）给一点呼吸 */
@@ -59,21 +77,27 @@
 }
 
 /* ---------- 场景分隔线：小说里的 --- ---------- */
+/* hr 的 width 百分比是相对 .md-typeset（窄栏）算的，
+   之前 30% 只有 90px 且 ::after 没水平居中，看起来像页面脏点。 */
 .md-typeset hr {
   border: none;
-  margin: 2.6rem auto;
-  width: 30%;
-  text-align: center;
+  height: auto;
+  margin: 2.8rem 0;
+  width: 100%;
   overflow: visible;
+  background: none;
 }
 
 .md-typeset hr::after {
   content: "· · ·";
   display: block;
-  font-size: 0.9rem;
-  letter-spacing: 0.6em;
+  width: 100%;
+  text-align: center;
+  font-size: 1.1rem;
+  letter-spacing: 0.65em;
+  text-indent: 0.65em;   /* 抵消末尾字距，使三点真正视觉居中 */
+  line-height: 1;
   color: var(--md-default-fg-color--light);
-  text-indent: 0.6em;
 }
 
 /* ---------- 引用块：邮件、备忘录、commit message ---------- */

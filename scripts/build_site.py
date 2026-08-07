@@ -199,9 +199,11 @@ def build(check_only=False):
         "> 一个沉默的后端工程师，被迫学习「向上管理」的故事。",
         "",
         "他做的系统跑着全公司的钱，但没有人知道他的名字。",
+        "",
         "他写三千字的复盘，领导回他两个字：「收到。」",
         "",
         "这不是一个「三年后我王者归来」的故事。",
+        "",
         "这是一个普通人在结构性困境里，一寸一寸把自己捞出来的故事。",
         "",
         f"**已更新 {len(chapters)} 章 · {total_chars:,} 字 · 每晚 20:00 更新**",
@@ -221,8 +223,10 @@ def build(check_only=False):
             cur_vol = c["volume"]
             lo = next((l for l, h, n in VOLUMES if n == cur_vol), 0)
             hi = next((h for l, h, n in VOLUMES if n == cur_vol), 0)
+            planned = hi - lo + 1
+            done_in_vol = sum(1 for x in chapters if x["volume"] == cur_vol)
             idx += ["", f"### {cur_vol}", "",
-                    f"<small>共 {hi - lo + 1} 章</small>", ""]
+                    f"<small>已更新 {done_in_vol} / 规划 {planned} 章</small>", ""]
         idx.append(
             f"- [**第{cn_number(c['num'])}章 · {c['title']}**]"
             f"(chapters/{c['slug']}/)"
@@ -231,13 +235,16 @@ def build(check_only=False):
 
     # 未写的章节提示
     written = {c["num"] for c in chapters}
-    pending = [n for n in range(1, 63) if n not in written]
+    total_planned = VOLUMES[-1][1]
+    pending = [n for n in range(1, total_planned + 1) if n not in written]
     if pending:
         idx += [
             "",
             "---",
             "",
-            f"<small>后续 {len(pending)} 章待更新，每晚 20:00 自动发布。</small>",
+            f"<small>全书规划 {total_planned} 章，"
+            f"已更新 {len(chapters)} 章，"
+            f"余 {len(pending)} 章待更新。每晚 20:00 自动发布。</small>",
             "",
         ]
 
